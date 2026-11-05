@@ -1,0 +1,549 @@
+/*
+ * CSS for jsPsych experiments.
+ *
+ * This stylesheet provides minimal styling to make jsPsych
+ * experiments look polished without any additional styles.
+ */
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700);
+
+
+/* Container holding jsPsych content */
+
+.jspsych-display-element {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.jspsych-display-element:focus {
+  outline: none;
+}
+
+
+.jspsych-content-wrapper {
+  display: flex;
+  margin: auto;
+  flex: 1 1 100%;
+  width: 100%;
+}
+
+
+.jspsych-content {
+  max-width: 95%; /* this is mainly an IE 10-11 fix */
+  text-align: center;
+  margin: auto; /* this is for overflowing content */
+}
+
+
+.jspsych-top {
+  align-items: flex-start;
+}
+
+
+.jspsych-middle {
+  align-items: center;
+}
+
+
+
+/* fonts and type */
+
+.jspsych-display-element {
+  font-family: 'Open Sans', 'Arial', sans-serif;
+  font-size: 18px;
+  line-height: 1.6em;
+}
+
+
+
+/* Form elements like input fields and buttons */
+
+.jspsych-display-element input[type="text"] {
+  font-family: 'Open Sans', 'Arial', sans-serif;
+  font-size: 14px;
+}
+
+
+/* borrowing Bootstrap style for btn elements, but combining styles a bit */
+
+.jspsych-btn {
+  display: inline-block;
+  padding: 6px 12px;
+  margin: 0px;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: 'Open Sans', 'Arial', sans-serif;
+  cursor: pointer;
+  line-height: 1.4;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #333;
+  background-color: #fff;
+  border-color: #ccc;
+}
+
+
+.jspsych-btn:hover {
+  background-color: #ddd;
+  border-color: #aaa;
+}
+
+
+.jspsych-btn:disabled {
+  background-color: #eee;
+  color: #aaa;
+  border-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* keep oddball task directly underneath the game */
+.game-active .jspsych-content-wrapper {
+  flex: 0 0 auto;
+  margin: 0 auto;
+}
+
+/* center the entire game vertically during oddball trials */
+.jspsych-display-element.game-active {
+  justify-content: center;
+}
+
+.game-active #jspsych-progressbar-container {
+  margin: 0 auto;
+  padding: 0;
+}
+
+.game-active .jspsych-content-wrapper {
+  display: none;
+}
+
+
+/* jsPsych progress bar / game container */
+
+
+/*
+OLD PROGRESS BAR CONTAINER
+
+#jspsych-progressbar-container {
+  color: #555;
+  border-bottom: 1px solid #808080;
+  background-color: #808080;
+  margin-bottom: 1em;
+  text-align: center;
+  padding: 35px 0px;
+  width: 50%;
+  line-height: 1em;
+  position: fixed; 
+  z-index: 100;  
+  top: 20%;  
+  left: 25%; 
+}
+*/
+
+
+/*
+ * The jsPsych progress bar itself is no longer shown.
+ * Its container is used to hold the game.
+ */
+
+#jspsych-progressbar-container {
+  width: 100%;
+
+  position: relative;
+
+  margin: var(--game-top-margin) auto 0px auto;
+  padding: 10px 0 0 0;
+
+  text-align: center;
+
+  background: transparent;
+  border: none;
+
+  z-index: 100;
+}
+
+
+/* hide the default jsPsych progress bar text */
+
+#jspsych-progressbar-container span {
+  display: none;
+}
+
+
+
+/*
+OLD PROGRESS BAR OUTER
+
+#jspsych-progressbar-outer {
+  background-color: #eee;
+  width: 50%;
+  margin: auto;
+  height: 14px;
+  display: inline-block;
+  vertical-align: middle;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+
+  position: relative;
+
+  overflow: visible;
+}
+*/
+
+
+/* hide the actual progress bar */
+
+#jspsych-progressbar-outer {
+  display: none;
+}
+
+
+
+/*
+OLD PROGRESS BAR INNER
+
+#jspsych-progressbar-inner {
+  background-color: #07a311;
+  width: 0%;
+  height: 100%;
+}
+*/
+
+
+
+/*
+OLD PROGRESS BAR IMAGES
+
+.progress-image {
+  position: absolute;
+
+  width: 50px;
+  height: 50px;
+
+  object-fit: contain;
+
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  z-index: 10;
+
+  pointer-events: none;
+}
+*/
+
+
+
+/* Scenario settings
+ * task.js puts the selected scenario on the <html> element.
+ * Settings are inherited by both the game and the victory screen.
+ * Edit the matching scenario section to change its appearance.
+ * Shared defaults preserve the current layout for any new scenario.
+ */
+
+:root {
+  --game-width: 1200px;
+  --game-height: 600px;
+  --game-max-width: 95vw;
+  --game-top-margin: 100px;
+  --game-background-size: cover;
+  --game-background-position: center;
+  --game-border-radius: 10px;
+
+  --character-width: 150px;
+  --character-height: 150px;
+  --character-bottom: 50px;
+  --character-transition: left 0.30s ease-out,
+                        bottom 0.30s ease-out,
+                        transform 0.30s ease-out;
+  --character-glow: none;
+
+  --subgoal-width: 100px;
+  --subgoal-height: 100px;
+  --subgoal-bottom: 25px;
+  --subgoal-glow: drop-shadow(0 0 10px rgba(255, 0, 0, 1))
+                  drop-shadow(0 0 20px rgba(255, 0, 0, 1))
+                  drop-shadow(0 0 40px rgba(255, 0, 0, 0.9))
+                  drop-shadow(0 0 60px rgba(255, 0, 0, 0.7));
+
+  --goal-width: 350px;
+  --goal-height: 350px;
+  --goal-bottom: -10px;
+  --goal-glow: drop-shadow(0 0 8px rgba(255, 180, 80, 0.9))
+               drop-shadow(0 0 16px rgba(255, 120, 40, 0.7));
+
+  --complete-background: black;
+  --complete-image-width: auto;
+  --complete-image-height: auto;
+  --complete-image-max-width: 90vw;
+  --complete-image-max-height: 70vh;
+  --complete-title-size: 45px;
+  --complete-text-size: 24px;
+  --complete-text-color: white;
+}
+
+/* knight scenario */
+html[data-game-scenario="knight"] {
+  --character-width: 12.5cqw;
+  --character-height: 12.5cqw;
+  --character-bottom: 5.4167cqw;
+
+  --subgoal-width: 5.8333cqw;
+  --subgoal-height: 5.8333cqw;
+  --subgoal-bottom: 5.4167cqw;
+
+  --goal-width: 29.1667cqw;
+  --goal-height: 29.1667cqw;
+  --goal-bottom: -0.8333cqw;
+}
+
+html[data-game-scenario="diver"] {
+  --character-width: 12.5cqw;
+  --character-height: 12.5cqw;
+  --character-bottom: 4.1667cqw;
+
+  --subgoal-width: 8.3333cqw;
+  --subgoal-height: 8.3333cqw;
+  --subgoal-bottom: 4.1667cqw;
+
+  --goal-width: 20.8333cqw;
+  --goal-height: 20.8333cqw;
+  --goal-bottom: 0;
+}
+
+html[data-game-scenario="explorer"] {
+  --character-width: 12.5cqw;
+  --character-height: 12.5cqw;
+  --character-bottom: 5.4167cqw;
+
+  --subgoal-width: 5.8333cqw;
+  --subgoal-height: 5.8333cqw;
+  --subgoal-bottom: 5.4167cqw;
+
+  --goal-width: 8.3333cqw;
+  --goal-height: 8.3333cqw;
+  --goal-bottom: 5cqw;
+}
+
+/* game */
+
+
+/* fixed game rectangle */
+
+/* game rectangle that scales with screen size */
+
+#game-container {
+  position: relative;
+
+  /* fit within 95% of screen width and 80% of screen height */
+  width: min(95vw, 160vh, 1200px);
+
+  /* always maintain the original 1200 x 600 proportions */
+  aspect-ratio: 2 / 1;
+  height: auto;
+
+  /* allow child elements to use cqw units */
+  container-type: inline-size;
+
+  margin: auto;
+
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  overflow: hidden;
+  border-radius: var(--game-border-radius);
+}
+
+/* Permanent black box behind the oddballs */
+#oddball-panel {
+  position: absolute;
+
+  top: 32%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 56cqw;
+  min-height: 16cqw;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: black;
+  padding: 1.5cqw 2cqw;
+  border-radius: 0.6cqw;
+
+  z-index: 50;
+  pointer-events: none;
+}
+
+/* Container holding the three oddball images */
+#oddball-stimuli {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+}
+
+/* Images that appear and disappear each trial */
+#oddball-images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 1.5cqw;
+}
+
+.oddball-image {
+  width: 11.5cqw;
+  height: 11.5cqw;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+/* larger individual oddball images */
+.oddball-image {
+  width: 11.5cqw;
+  height: 11.5cqw;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+/* all game object images */
+
+.game-image {
+  position: absolute;
+
+  /* left represents the center of each image */
+  transform: translateX(-50%);
+
+  transform-origin: center bottom;
+
+  object-fit: contain;
+
+  pointer-events: none;
+
+  z-index: 10;
+
+}
+
+
+/* character */
+
+#game-character {
+  width: var(--character-width);
+  height: var(--character-height);
+
+  /* place character on the road */
+  bottom: var(--character-bottom);
+
+  /* move smoothly whenever progress changes */
+  transition: var(--character-transition);
+
+  filter: var(--character-glow);
+
+  z-index: 20;
+}
+
+
+/* subgoal object */
+
+#game-subgoal {
+  width: var(--subgoal-width);
+  height: var(--subgoal-height);
+
+  /* place subgoal object on the road */
+  bottom: var(--subgoal-bottom);
+
+  z-index: 15;
+
+  filter: var(--subgoal-glow);
+}
+
+
+
+/* final goal */
+
+#game-goal {
+  width: var(--goal-width);
+  height: var(--goal-height);
+
+  /* place goal on the road */
+  bottom: var(--goal-bottom);
+
+  z-index: 15;
+
+  filter: var(--goal-glow);
+
+}
+
+
+
+/* completed block / victory screen */
+
+#game-complete-screen {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background: var(--complete-background);
+
+  z-index: 1000;
+}
+
+
+/* victory text shown above image */
+
+#game-complete-title {
+  font-size: var(--complete-title-size);
+  font-weight: bold;
+
+  color: var(--complete-text-color);
+
+  margin-bottom: 20px;
+}
+
+
+/* completed scenario image */
+
+#game-complete-image {
+  width: var(--complete-image-width);
+  height: var(--complete-image-height);
+
+  max-width: var(--complete-image-max-width);
+  max-height: var(--complete-image-max-height);
+
+  object-fit: contain;
+}
+
+
+/* continue instruction */
+
+#game-complete-text {
+  font-size: var(--complete-text-size);
+
+  color: var(--complete-text-color);
+
+  margin-top: 20px;
+}
+
+
+
+/* Control appearance of jsPsych.data.displayData() */
+
+#jspsych-data-display {
+  text-align: left;
+}
